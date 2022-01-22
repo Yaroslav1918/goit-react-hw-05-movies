@@ -1,0 +1,42 @@
+.form {
+  display: flex;
+  align-items: center;
+
+  max-width: 300px;
+  background-color: #e7e7e9;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.btn {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  color: black;
+  border: 0;
+  opacity: 0.6;
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  outline: none;
+  background-color: #01b0d3;
+}
+.btn:hover {
+  opacity: 1;
+}
+
+.input {
+  display: inline-block;
+
+  font: inherit;
+  color: black;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  padding-left: 4px;
+  padding-right: 4px;
+  background-color: #e7e7e9;
+}
+.input::placeholder {
+  font: inherit;
+  font-size: 18px;
+}
