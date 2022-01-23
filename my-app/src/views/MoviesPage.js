@@ -3,7 +3,11 @@ import * as serviesApi from "../servies/serviesApi";
 import MoviesPageForm from "../components/MoviesPageForm";
 import PopularFilmList from "../components/PopularFilmList";
 import MovieDetailsPage from "../views/MovieDetailsPage";
-import { useRouteMatch } from "react-router-dom";
+import {
+  useRouteMatch,
+  useLocation,
+  useHistory,
+} from "react-router-dom";
 import LoaderComponent from "../components/LoaderComponent";
 import Status from "../servies/status";
 
@@ -13,6 +17,18 @@ export default function MoviesPage() {
   const [filmList, setFilmList] = useState(null);
   const [eror, setEror] = useState(null);
   const { url } = useRouteMatch();
+  const location = useLocation();
+  const history = useHistory();
+
+  const getQuery = (query) => {
+    setQuery(query);
+    history.push({ search: `query=${query}` });
+  };
+  useEffect(() => {
+    const newSearchQuery = new URLSearchParams(location.search).get("query");
+
+    setQuery(newSearchQuery);
+  }, [location.search]);
 
   useEffect(() => {
     if (!query) return;
@@ -35,10 +51,16 @@ export default function MoviesPage() {
       {status === "rejected" && <h2>{eror}</h2>}
 
       {status === "pending" && <LoaderComponent />}
-      <MoviesPageForm onSubmit={setQuery} />
+      <MoviesPageForm onSubmit={getQuery} />
+
       {status === "resolved" && (
-        <PopularFilmList filmList={filmList.results} urlMoviesPage={url} />
+        <PopularFilmList
+          filmList={filmList.results}
+          urlMoviesPage={url}
+          location={location}
+        />
       )}
+
       <MovieDetailsPage />
     </>
   );

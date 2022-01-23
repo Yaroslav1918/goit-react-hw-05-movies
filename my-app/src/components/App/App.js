@@ -3,6 +3,7 @@ import AppBar from "../AppBar";
 import { Switch, Route, Redirect } from "react-router-dom";
 import React from "react";
 import LoaderComponent from "../LoaderComponent";
+import PopularFilmList from "../PopularFilmList";
 const HomePage = lazy(() =>
   import("../../views/HomePage" /* webpackChunkName: "HomePage" */)
 );
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/movies/:moviesId">
             <MovieDetailsPage />
           </Route>
+
           <Redirect to="/" />
         </Switch>
       </Suspense>

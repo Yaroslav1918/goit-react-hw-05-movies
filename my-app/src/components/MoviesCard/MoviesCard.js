@@ -2,11 +2,18 @@ import noFoundPhoto from "../../image/no_image.jpg";
 import s from "../../style//Button.module.css";
 import { FcHome } from "react-icons/fc";
 import PropTypes from "prop-types";
+import { useHistory, useLocation } from "react-router-dom";
 
-export default function MoviesCard({ film, onClick }) {
+export default function MoviesCard({ film }) {
+  const location = useLocation();
+  const history = useHistory();
+  const handleClick = () => {
+    history.push(location?.state?.from ?? "/");
+  };
+
   return (
     <>
-      <button type="button" className={s.btn} onClick={() => onClick()}>
+      <button type="button" className={s.btn} onClick={handleClick}>
         <FcHome /> <span> Go home</span>
       </button>
       <h3>{film.original_title}</h3>
@@ -37,5 +44,4 @@ export default function MoviesCard({ film, onClick }) {
 
 MoviesCard.propTypes = {
   film: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired,
 };

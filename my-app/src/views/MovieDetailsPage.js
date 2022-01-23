@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, useLocation } from "react-router-dom";
 import * as serviesApi from "../servies/serviesApi";
 import { useRouteMatch, Route } from "react-router-dom";
 import Status from "../servies/status";
@@ -14,10 +14,6 @@ export default function MovieDetailsPage() {
   const [film, setFilm] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
   const [eror, setEror] = useState(null);
-  const handleClick = () => {
-    history.push("/");
-  };
-  const history = useHistory();
   const { path } = useRouteMatch();
   const { moviesId } = useParams();
 
@@ -44,7 +40,7 @@ export default function MovieDetailsPage() {
       {status === "rejected" && <h2>{eror}</h2>}
       {status === "resolved" && (
         <>
-          <MoviesCard film={film} onClick={handleClick} />
+          <MoviesCard film={film} />
           <MoviesAdditionalInfo />
           <Route path={`${path}/cast`}>{moviesId && <Cast />}</Route>
           <Route path={`${path}/reviews`}>{moviesId && <Reviews />}</Route>
