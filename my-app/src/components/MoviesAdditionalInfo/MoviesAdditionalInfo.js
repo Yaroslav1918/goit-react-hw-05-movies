@@ -1,7 +1,8 @@
-import { Link, useParams, Route } from "react-router-dom";
+import { Link, useParams, useRouteMatch } from "react-router-dom";
 
 export default function MoviesAdditionalInfo() {
   const { moviesId } = useParams();
+
   return (
     <>
       <p>Additional information</p>

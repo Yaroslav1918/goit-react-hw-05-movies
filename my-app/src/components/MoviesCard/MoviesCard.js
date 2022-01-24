@@ -7,6 +7,7 @@ import { useHistory, useLocation } from "react-router-dom";
 export default function MoviesCard({ film }) {
   const location = useLocation();
   const history = useHistory();
+
   const handleClick = () => {
     history.push(location?.state?.from ?? "/");
   };

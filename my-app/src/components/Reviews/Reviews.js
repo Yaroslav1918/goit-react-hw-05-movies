@@ -35,7 +35,7 @@ export default function Reviews() {
             </li>
           ))}
       </ul>
-      {status === "rejected" && <NoFoundReviews />}
+      {status === "rejected" && <NoFoundReviews eror={error} />}
     </>
   );
 }

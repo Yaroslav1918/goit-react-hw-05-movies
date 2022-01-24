@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import * as serviesApi from "../servies/serviesApi";
 import Status from "../servies/status";
+import Eror from "../components/Eror";
 
 export default function HomePage() {
   const [filmList, setFilmList] = useState(null);
@@ -23,7 +24,7 @@ export default function HomePage() {
 
   return (
     <>
-      {status === "rejected" && <h2>{eror}</h2>}
+      {status === "rejected" && <Eror value={eror} />}
       {filmList && (
         <PopularFilmList filmList={filmList.results} location={location} />
       )}

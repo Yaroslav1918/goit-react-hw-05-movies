@@ -2,14 +2,11 @@ import { useState, useEffect } from "react";
 import * as serviesApi from "../servies/serviesApi";
 import MoviesPageForm from "../components/MoviesPageForm";
 import PopularFilmList from "../components/PopularFilmList";
-import MovieDetailsPage from "../views/MovieDetailsPage";
-import {
-  useRouteMatch,
-  useLocation,
-  useHistory,
-} from "react-router-dom";
+
+import { useRouteMatch, useLocation, useHistory } from "react-router-dom";
 import LoaderComponent from "../components/LoaderComponent";
 import Status from "../servies/status";
+import Eror from "../components/Eror";
 
 export default function MoviesPage() {
   const [status, setStatus] = useState(Status.IDLE);
@@ -48,7 +45,7 @@ export default function MoviesPage() {
   return (
     <>
       {status === "idle" && null}
-      {status === "rejected" && <h2>{eror}</h2>}
+      {status === "rejected" && <Eror value={eror} />}
 
       {status === "pending" && <LoaderComponent />}
       <MoviesPageForm onSubmit={getQuery} />
@@ -60,8 +57,6 @@ export default function MoviesPage() {
           location={location}
         />
       )}
-
-      <MovieDetailsPage />
     </>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useHistory, useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import * as serviesApi from "../servies/serviesApi";
 import { useRouteMatch, Route } from "react-router-dom";
 import Status from "../servies/status";
@@ -9,12 +9,18 @@ import MoviesAdditionalInfo from "../components/MoviesAdditionalInfo";
 import Cast from "../components/Cast/Cast";
 import Reviews from "../components/Reviews/Reviews";
 import MoviesCard from "../components/MoviesCard";
+import Eror from "../components/Eror";
 
 export default function MovieDetailsPage() {
   const [film, setFilm] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
   const [eror, setEror] = useState(null);
-  const { path } = useRouteMatch();
+  const { path, url } = useRouteMatch();
+  const location = useLocation();
+  const [prevLocation, setPrevLocation] = useState(
+    location?.state?.from ?? "/"
+  );
+
   const { moviesId } = useParams();
 
   useEffect(() => {
@@ -37,11 +43,11 @@ export default function MovieDetailsPage() {
 
       {status === "pending" && <LoaderComponent />}
 
-      {status === "rejected" && <h2>{eror}</h2>}
+      {status === "rejected" && <Eror value={eror} />}
       {status === "resolved" && (
         <>
           <MoviesCard film={film} />
-          <MoviesAdditionalInfo />
+          <MoviesAdditionalInfo location={prevLocation} url={url} />
           <Route path={`${path}/cast`}>{moviesId && <Cast />}</Route>
           <Route path={`${path}/reviews`}>{moviesId && <Reviews />}</Route>
         </>
